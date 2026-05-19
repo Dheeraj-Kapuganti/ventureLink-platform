@@ -1,59 +1,127 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 ventureLink - Fintech Startup Investment Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Welcome to **ventureLink**, a modern, premium, MongoDB-backed fintech platform designed to connect ambitious **Founders** with visionary **Investors**. The application is built using **Laravel 12**, **MongoDB**, **Tailwind CSS v4**, and **Vite**.
 
-## About Laravel
+This README provides complete, step-by-step instructions to set up, run, and explore the application.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠️ Prerequisites
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Before you begin, ensure you have the following installed on your local machine:
 
-## Learning Laravel
+1. **PHP (>= 8.2)**
+   - Verify with: `php -v`
+2. **Composer (PHP Dependency Manager)**
+   - Verify with: `composer -V`
+3. **Node.js (>= 18.0) & npm**
+   - Verify with: `node -v` and `npm -v`
+4. **MongoDB Community Server**
+   - Must be installed and running locally on `127.0.0.1:27017` (or you can use a remote MongoDB Atlas URI).
+   - Verify MongoDB is running (e.g., using MongoDB Compass or terminal command).
+5. **MongoDB PHP Extension (`mongodb`)**
+   - Essential for Laravel to communicate with MongoDB.
+   - **Installation Guide:**
+     - **Windows:** Download the DLL from [PECL](https://pecl.php.net/package/mongodb) matching your PHP version (Thread Safe/Non-Thread Safe) and architecture (x64/x86). Add `extension=mongodb` to your `php.ini`.
+     - **macOS (via Homebrew):** Run `pecl install mongodb` and ensure your active PHP configuration registers the extension.
+     - **Linux (Ubuntu/Debian):** Run `sudo apt-get install php-mongodb` or `sudo pecl install mongodb`.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## ⚡ Quick Start Setup
 
-## Laravel Sponsors
+To run this project locally, your friend should open a terminal (PowerShell, Bash, or Command Prompt) and follow these exact steps:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Dheeraj-Kapuganti/ventureLink.git
+cd ventureLink
+```
 
-### Premium Partners
+### 2. Configure Environment Variables
+Copy the `.env.example` file to create a `.env` file:
+- **Windows (Command Prompt / PowerShell):**
+  ```powershell
+  copy .env.example .env
+  ```
+- **macOS / Linux:**
+  ```bash
+  cp .env.example .env
+  ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+*Note: The database configuration inside `.env` will default to a local MongoDB instance. If your database runs on a different port or requires a password, open `.env` in a text editor and adjust these values:*
+```env
+DB_CONNECTION=mongodb
+DB_HOST=127.0.0.1
+DB_PORT=27017
+DB_DATABASE=startup-finance
+DB_USERNAME=
+DB_PASSWORD=
+```
 
-## Contributing
+### 3. Run the Auto-Setup Script
+We've included a handy `setup` composer script that runs the heavy lifting (installing composer packages, generating the App Key, installing npm packages, and building frontend assets):
+```bash
+composer setup
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+*Alternative (Manual Steps):*
+If the setup script is not used, run these commands in order:
+```bash
+composer install
+php artisan key:generate
+npm install
+npm run build
+```
 
-## Code of Conduct
+### 4. Seed the Database
+To populate the database with default accounts (Admin, Founder) and test data, run the seeders:
+```bash
+php artisan db:seed
+php artisan db:seed --class=TempSeeder
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🚀 Running the Application
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+To start the local development servers for both the Laravel backend and Vite frontend assets in parallel, simply run:
 
-## License
+```bash
+composer dev
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This runs the backend server and Vite bundler simultaneously. You can access the application in your web browser at:
+👉 **[http://127.0.0.1:8000](http://127.0.0.1:8000)**
+
+---
+
+## 🔑 Default Login Credentials
+
+Use the following seeded credentials to explore the different dashboards:
+
+### 1. 🛡️ System Admin Dashboard
+*Manage startups, toggle/block users, view global analytics and investments.*
+- **URL:** [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin) or navigate to Login page and log in.
+- **Email:** `admin@example.com`
+- **Password:** `admin123`
+
+### 2. 🚀 Founder Dashboard
+*Create and manage startups, view funding progress, stage, deadlines, and active investment details.*
+- **Email:** `founder@test.com`
+- **Password:** `password`
+
+### 3. 💼 Investor Dashboard
+*Create a new Investor account via the `/register` page to browse active startups, bookmark favorites, post reviews/star ratings, make mock investments, and track your investment portfolio.*
+- **Register Link:** [http://127.0.0.1:8000/register](http://127.0.0.1:8000/register) (Select **Investor** role)
+
+---
+
+## 🌟 Key Application Features
+
+- **Dynamic Role-Based Redirection**: A unified login system that seamlessly routes Admins, Founders, and Investors to their customized panels.
+- **Comprehensive Founder Workflow**: Seamlessly register your startup, submit it for admin approval, edit details, and track real-time funding progress.
+- **Investor Suite**: Detailed search/discovery of approved startups, high-end investment simulations, custom bookmarking, and investment portfolio tracking.
+- **Robust Community Interaction**: Interactive nested comments threads and star-rating review systems on every startup profile.
+- **Smart Notification Hub**: In-app notifications alerting users about new investments, comments, goal completions, and admin approvals.
+- **Advanced Admin Analytics**: Complete user management, platform audit controls, and real-time dashboard analytics displaying beautiful, responsive charts, platform growth, and investment volume.
