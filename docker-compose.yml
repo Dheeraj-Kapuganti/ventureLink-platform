@@ -1,0 +1,26 @@
+services:
+  app:
+    build: .
+    container_name: venturelink-app
+    ports:
+      - "8000:8000"
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/vendor
+      - /app/node_modules
+    depends_on:
+      - mongodb
+    environment:
+      - DB_HOST=mongodb
+
+  mongodb:
+    image: mongo:6.0
+    container_name: venturelink-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

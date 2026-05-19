@@ -2,14 +2,48 @@
 
 Welcome to **ventureLink**, a modern, premium, MongoDB-backed fintech platform designed to connect ambitious **Founders** with visionary **Investors**. The application is built using **Laravel 12**, **MongoDB**, **Tailwind CSS v4**, and **Vite**.
 
-This README provides complete, step-by-step instructions to set up, run, and explore the application.
+This README provides complete instructions to set up, run, and explore the application.
 
 ---
 
-## 🛠️ Prerequisites
+## 🐳 Easy Docker Setup (Highly Recommended)
 
-Before you begin, ensure you have the following installed on your local machine:
+Using Docker is the easiest way to run the project. **You do not need to install PHP, Node.js, Composer, MongoDB, or the PHP MongoDB extension manually.** Everything is built-in and configured automatically!
 
+### 1. Prerequisites
+Ensure you have **Docker Desktop** installed and running on your machine:
+* [Download Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+### 2. Steps to Run
+Open your terminal (PowerShell, Bash, or Command Prompt) and run:
+
+```bash
+# Clone the repository
+git clone https://github.com/Dheeraj-Kapuganti/ventureLink.git
+cd ventureLink
+
+# Run Docker Compose to build and start the containers
+docker compose up --build
+```
+
+**That's it!** The Docker container will automatically:
+1. Create your `.env` file and link it to the container's MongoDB database.
+2. Install all PHP Composer dependencies.
+3. Install all Node.js/NPM packages.
+4. Generate the application encryption key.
+5. Setup and seed the MongoDB database with default testing accounts.
+6. Launch the Laravel development server and Vite asset compiler simultaneously.
+
+Once you see the servers starting, open your browser to:
+👉 **[http://127.0.0.1:8000](http://127.0.0.1:8000)**
+
+---
+
+## 💻 Manual Local Setup (Alternative)
+
+If you prefer not to use Docker, you can set up the environment manually on your system.
+
+### Prerequisites
 1. **PHP (>= 8.2)**
    - Verify with: `php -v`
 2. **Composer (PHP Dependency Manager)**
@@ -17,82 +51,47 @@ Before you begin, ensure you have the following installed on your local machine:
 3. **Node.js (>= 18.0) & npm**
    - Verify with: `node -v` and `npm -v`
 4. **MongoDB Community Server**
-   - Must be installed and running locally on `127.0.0.1:27017` (or you can use a remote MongoDB Atlas URI).
-   - Verify MongoDB is running (e.g., using MongoDB Compass or terminal command).
+   - Must be installed and running locally on `127.0.0.1:27017`.
 5. **MongoDB PHP Extension (`mongodb`)**
    - Essential for Laravel to communicate with MongoDB.
-   - **Installation Guide:**
-     - **Windows:** Download the DLL from [PECL](https://pecl.php.net/package/mongodb) matching your PHP version (Thread Safe/Non-Thread Safe) and architecture (x64/x86). Add `extension=mongodb` to your `php.ini`.
-     - **macOS (via Homebrew):** Run `pecl install mongodb` and ensure your active PHP configuration registers the extension.
-     - **Linux (Ubuntu/Debian):** Run `sudo apt-get install php-mongodb` or `sudo pecl install mongodb`.
+   - **Windows Installation Guide:**
+     - Download the DLL from [PECL](https://pecl.php.net/package/mongodb) matching your PHP version (Thread Safe/Non-Thread Safe) and architecture (x64/x86).
+     - Copy `php_mongodb.dll` to your PHP `ext` directory.
+     - Add `extension=mongodb` to your active `php.ini` file.
+   - **macOS Installation Guide:** Run `pecl install mongodb`.
+   - **Linux Installation Guide:** Run `sudo apt-get install php-mongodb`.
 
----
+### Setup Steps
 
-## ⚡ Quick Start Setup
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/Dheeraj-Kapuganti/ventureLink.git
+   cd ventureLink
+   ```
 
-To run this project locally, your friend should open a terminal (PowerShell, Bash, or Command Prompt) and follow these exact steps:
+2. **Configure Environment Variables**
+   Copy the `.env.example` file to create a `.env` file:
+   - **Windows:** `copy .env.example .env`
+   - **macOS / Linux:** `cp .env.example .env`
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/Dheeraj-Kapuganti/ventureLink.git
-cd ventureLink
-```
+3. **Run the Auto-Setup Script**
+   ```bash
+   composer setup
+   ```
+   *(Alternative manual commands: `composer install`, `php artisan key:generate`, `npm install`, and `npm run build`)*
 
-### 2. Configure Environment Variables
-Copy the `.env.example` file to create a `.env` file:
-- **Windows (Command Prompt / PowerShell):**
-  ```powershell
-  copy .env.example .env
-  ```
-- **macOS / Linux:**
-  ```bash
-  cp .env.example .env
-  ```
+4. **Seed the Database**
+   To populate testing accounts and startup records:
+   ```bash
+   php artisan db:seed
+   php artisan db:seed --class=TempSeeder
+   ```
 
-*Note: The database configuration inside `.env` will default to a local MongoDB instance. If your database runs on a different port or requires a password, open `.env` in a text editor and adjust these values:*
-```env
-DB_CONNECTION=mongodb
-DB_HOST=127.0.0.1
-DB_PORT=27017
-DB_DATABASE=startup-finance
-DB_USERNAME=
-DB_PASSWORD=
-```
-
-### 3. Run the Auto-Setup Script
-We've included a handy `setup` composer script that runs the heavy lifting (installing composer packages, generating the App Key, installing npm packages, and building frontend assets):
-```bash
-composer setup
-```
-
-*Alternative (Manual Steps):*
-If the setup script is not used, run these commands in order:
-```bash
-composer install
-php artisan key:generate
-npm install
-npm run build
-```
-
-### 4. Seed the Database
-To populate the database with default accounts (Admin, Founder) and test data, run the seeders:
-```bash
-php artisan db:seed
-php artisan db:seed --class=TempSeeder
-```
-
----
-
-## 🚀 Running the Application
-
-To start the local development servers for both the Laravel backend and Vite frontend assets in parallel, simply run:
-
-```bash
-composer dev
-```
-
-This runs the backend server and Vite bundler simultaneously. You can access the application in your web browser at:
-👉 **[http://127.0.0.1:8000](http://127.0.0.1:8000)**
+5. **Start Dev Servers**
+   ```bash
+   composer dev
+   ```
+   Access the app at: **[http://127.0.0.1:8000](http://127.0.0.1:8000)**
 
 ---
 
