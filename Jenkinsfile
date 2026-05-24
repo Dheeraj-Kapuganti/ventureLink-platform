@@ -10,15 +10,23 @@ pipeline {
             }
         }
 
-        stage('Stop Old Containers') {
+        stage('Build Docker Image') {
             steps {
-                sh '/usr/bin/docker compose down || true'
+                sh 'docker build -t venturelink-app .'
             }
         }
 
-        stage('Build And Start Containers') {
+        stage('Run Container') {
             steps {
-                sh '/usr/bin/docker compose up --build -d'
+                sh 'docker stop venturelink-container || true'
+                sh 'docker rm venturelink-container || true'
+
+                sh '''
+                docker run -d \
+                --name venturelink-container \
+                -p 8000:8000 \
+                venturelink-app
+                '''
             }
         }
 
