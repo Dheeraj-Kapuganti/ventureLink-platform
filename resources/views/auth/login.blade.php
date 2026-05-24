@@ -7,7 +7,7 @@
     </div>
     <div class="split-form">
         <div class="auth-container">
-            <div class="brand-title">StartupPlatform</div>
+            <div class="brand-title">StartupPlatform CI-CD</div>
     <h2>Welcome Back!</h2>
     <p class="subtitle">Please login to your account.</p>
 
