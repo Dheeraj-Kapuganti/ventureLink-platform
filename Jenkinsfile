@@ -5,7 +5,8 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/Dheeraj-Kapuganti/ventureLink-platform.git'
+                git branch: 'main',
+                url: 'https://github.com/Dheeraj-Kapuganti/ventureLink-platform.git'
             }
         }
 
