@@ -12,13 +12,13 @@ pipeline {
 
         stage('Stop Old Containers') {
             steps {
-                sh 'docker-compose down || true'
+                sh '/usr/bin/docker compose down || true'
             }
         }
 
         stage('Build And Start Containers') {
             steps {
-                sh 'docker-compose up --build -d'
+                sh '/usr/bin/docker compose up --build -d'
             }
         }
 
