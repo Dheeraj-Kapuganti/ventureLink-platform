@@ -14,7 +14,7 @@ if [ ! -f .env ]; then
 fi
 
 # Install PHP dependencies
-if [ ! -d vendor ]; then
+if [ ! -f vendor/autoload.php ]; then
     echo "📦 Installing Composer dependencies..."
     composer install --no-interaction --prefer-dist
 fi
@@ -26,7 +26,7 @@ if [ -z "$(grep APP_KEY= .env | cut -d= -f2)" ]; then
 fi
 
 # Install Node dependencies
-if [ ! -d node_modules ]; then
+if [ ! -d node_modules/vite ]; then
     echo "💻 Installing NPM packages..."
     npm install
 fi
