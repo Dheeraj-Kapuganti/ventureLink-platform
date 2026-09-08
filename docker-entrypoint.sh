@@ -4,22 +4,8 @@ set -e
 
 echo "🚀 Starting VentureLink..."
 
-# Install PHP dependencies
-composer install --no-interaction --prefer-dist --optimize-autoloader
-
-# Install frontend dependencies
-npm install
-
-# Build frontend assets
-npm run build
-
-# Generate APP_KEY if it doesn't exist
-if [ -z "$APP_KEY" ]; then
-    echo "🔑 Generating application key..."
-    php artisan key:generate --force
-fi
-
-# Cache Laravel configuration
+# Clear and rebuild Laravel caches
+php artisan config:clear
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
